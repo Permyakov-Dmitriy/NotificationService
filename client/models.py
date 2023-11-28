@@ -3,7 +3,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class ClientModel(models.Model):
-    phone_number =  PhoneNumberField()
+    phone_number = PhoneNumberField()
 
     operator_code = models.CharField(max_length=3)
 
