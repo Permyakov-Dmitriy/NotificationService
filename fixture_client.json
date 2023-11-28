@@ -1,0 +1,102 @@
+[
+    {
+        "model": "client.clientmodel",
+        "pk": 1,
+        "fields": {
+            "phone_number": "+71234567890",
+            "operator_code": "123",
+            "tag": "tag1",
+            "timezone": "UTC"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 2,
+        "fields": {
+            "phone_number": "+71123456789",
+            "operator_code": "456",
+            "tag": "tag1",
+            "timezone": "Europe/Berlin"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 3,
+        "fields": {
+            "phone_number": "+71345678901",
+            "operator_code": "789",
+            "tag": "tag1",
+            "timezone": "America/New_York"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 4,
+        "fields": {
+            "phone_number": "+71456789012",
+            "operator_code": "012",
+            "tag": "tag2",
+            "timezone": "Asia/Tokyo"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 5,
+        "fields": {
+            "phone_number": "+71567890123",
+            "operator_code": "345",
+            "tag": "tag2",
+            "timezone": "Australia/Sydney"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 6,
+        "fields": {
+            "phone_number": "+71678901234",
+            "operator_code": "678",
+            "tag": "tag2",
+            "timezone": "America/Los_Angeles"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 7,
+        "fields": {
+            "phone_number": "+71789012345",
+            "operator_code": "901",
+            "tag": "tag2",
+            "timezone": "Europe/Paris"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 8,
+        "fields": {
+            "phone_number": "+71890123456",
+            "operator_code": "234",
+            "tag": "tag3",
+            "timezone": "UTC"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 9,
+        "fields": {
+            "phone_number": "+71901234567",
+            "operator_code": "567",
+            "tag": "tag3",
+            "timezone": "Asia/Shanghai"
+        }
+    },
+    {
+        "model": "client.clientmodel",
+        "pk": 10,
+        "fields": {
+            "phone_number": "+71112345678",
+            "operator_code": "890",
+            "tag": "tag13",
+            "timezone": "Africa/Cairo"
+        }
+    }
+]

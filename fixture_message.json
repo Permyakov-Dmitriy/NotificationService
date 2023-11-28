@@ -1,0 +1,102 @@
+[
+    {
+        "model": "message.messagemodel",
+        "pk": 1,
+        "fields": {
+            "sending_time": "2023-12-01T14:30:00Z",
+            "status": "Delivered",
+            "mailing_id": 1,
+            "client_id": 1
+        }
+    },
+    {
+        "model": "message.messagemodel",
+        "pk": 2,
+        "fields": {
+            "sending_time": "2023-12-05T09:45:00Z",
+            "status": "Pending",
+            "mailing_id": 1,
+            "client_id": 1
+        }
+    },
+    {
+        "model": "message.messagemodel",
+        "pk": 3,
+        "fields": {
+            "sending_time": "2023-12-10T16:20:00Z",
+            "status": "Failed",
+            "mailing_id": 1,
+            "client_id": 1
+        }
+    },
+    {
+            "model": "message.messagemodel",
+            "pk": 4,
+            "fields": {
+                "sending_time": "2023-12-12T08:00:00Z",
+                "status": "Pending",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        },
+        {
+            "model": "message.messagemodel",
+            "pk": 5,
+            "fields": {
+                "sending_time": "2023-12-15T15:30:00Z",
+                "status": "Delivered",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        },
+        {
+            "model": "message.messagemodel",
+            "pk": 6,
+            "fields": {
+                "sending_time": "2023-12-18T12:45:00Z",
+                "status": "Failed",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        },
+        {
+            "model": "message.messagemodel",
+            "pk": 7,
+            "fields": {
+                "sending_time": "2023-12-22T17:00:00Z",
+                "status": "Pending",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        },
+        {
+            "model": "message.messagemodel",
+            "pk": 8,
+            "fields": {
+                "sending_time": "2023-12-25T10:15:00Z",
+                "status": "Delivered",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        },
+        {
+            "model": "message.messagemodel",
+            "pk": 9,
+            "fields": {
+                "sending_time": "2023-12-28T14:20:00Z",
+                "status": "Pending",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        },
+        {
+            "model": "message.messagemodel",
+            "pk": 10,
+            "fields": {
+                "sending_time": "2023-12-31T11:30:00Z",
+                "status": "Delivered",
+                "mailing_id": 1,
+                "client_id": 1
+            }
+        }
+]

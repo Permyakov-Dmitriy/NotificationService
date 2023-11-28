@@ -1,18 +1,15 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import views, permissions, status
 from rest_framework.response import Response
 
 from .models import ClientModel
+from .serializer import ClientSerializer
 
 
 class ClientApiView(views.APIView):
-    def get_object(self, pk):
-        try:
-            return YourModel.objects.get(pk=pk)
-        except YourModel.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
-
     def post(self, request, *args, **kwargs):
-        serializer = TransactionSerializer(data=request.data)
+        serializer = ClientSerializer(data=request.data)
 
         if serializer.is_valid():
             phone_number = serializer.data["phone_number"]
@@ -29,7 +26,7 @@ class ClientApiView(views.APIView):
             )
 
     def put(self, request, pk, *args, **kwargs):
-        instance = self.get_object(pk)
+        instance = get_object_or_404(ClientModel, pk)
 
         serializer = ClientSerializer(instance, data=request.data)
 
@@ -40,6 +37,6 @@ class ClientApiView(views.APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        instance = self.get_object(pk)
+        instance = get_object_or_404(ClientModel, pk)
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
