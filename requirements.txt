@@ -1,0 +1,5 @@
+Django
+djangorestframework
+django-phonenumber-field[phonenumberslite]
+psycopg2-binary>=2.9.0
+psycopg2

@@ -1,0 +1,32 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+    networks:
+      - my_network
+  postgres:
+    image: postgres:latest
+    container_name: postgres_notify
+    restart: always
+    environment:
+      POSTGRES_DB: Notify
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+networks:
+  my_network:
+    driver: bridge
