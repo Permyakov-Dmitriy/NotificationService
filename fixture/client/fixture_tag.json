@@ -1,0 +1,16 @@
+[
+    {
+      "model": "client.tagmodel",
+      "pk": 1,
+      "fields": {
+        "mark": "customer"
+      }
+    },
+    {
+      "model": "client.tagmodel",
+      "pk": 2,
+      "fields": {
+        "mark": "partner"
+      }
+    }
+  ]

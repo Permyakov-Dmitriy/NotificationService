@@ -5,7 +5,6 @@
         "fields": {
             "phone_number": "+71234567890",
             "operator_code": "123",
-            "tag": "tag1",
             "timezone": "UTC"
         }
     },
@@ -15,7 +14,6 @@
         "fields": {
             "phone_number": "+71123456789",
             "operator_code": "456",
-            "tag": "tag1",
             "timezone": "Europe/Berlin"
         }
     },
@@ -25,7 +23,6 @@
         "fields": {
             "phone_number": "+71345678901",
             "operator_code": "789",
-            "tag": "tag1",
             "timezone": "America/New_York"
         }
     },
@@ -35,7 +32,6 @@
         "fields": {
             "phone_number": "+71456789012",
             "operator_code": "012",
-            "tag": "tag2",
             "timezone": "Asia/Tokyo"
         }
     },
@@ -45,7 +41,6 @@
         "fields": {
             "phone_number": "+71567890123",
             "operator_code": "345",
-            "tag": "tag2",
             "timezone": "Australia/Sydney"
         }
     },
@@ -55,7 +50,6 @@
         "fields": {
             "phone_number": "+71678901234",
             "operator_code": "678",
-            "tag": "tag2",
             "timezone": "America/Los_Angeles"
         }
     },
@@ -65,7 +59,6 @@
         "fields": {
             "phone_number": "+71789012345",
             "operator_code": "901",
-            "tag": "tag2",
             "timezone": "Europe/Paris"
         }
     },
@@ -75,7 +68,6 @@
         "fields": {
             "phone_number": "+71890123456",
             "operator_code": "234",
-            "tag": "tag3",
             "timezone": "UTC"
         }
     },
@@ -85,7 +77,6 @@
         "fields": {
             "phone_number": "+71901234567",
             "operator_code": "567",
-            "tag": "tag3",
             "timezone": "Asia/Shanghai"
         }
     },
@@ -95,7 +86,6 @@
         "fields": {
             "phone_number": "+71112345678",
             "operator_code": "890",
-            "tag": "tag13",
             "timezone": "Africa/Cairo"
         }
     }

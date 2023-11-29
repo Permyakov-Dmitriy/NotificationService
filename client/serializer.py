@@ -7,6 +7,6 @@ class ClientSerializer(serializers.Serializer):
 
     operator_code = serializers.CharField(max_length=3)
 
-    tag = serializers.CharField(max_length=50)
+    tags = serializers.CharField(default=None)
 
     timezone = serializers.CharField(max_length=63)

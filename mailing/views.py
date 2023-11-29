@@ -11,9 +11,12 @@ from .serializer import MailingSerializer
 
 class MailingApiView(views.APIView):
     def get(self, request, *args, **kwargs):
-        serializer = MailingSerializer(data=MailingModel.objects.all(), many=True)
+        serializer = MailingSerializer(data = MailingModel.objects.all(), many=True)
+
         serializer.is_valid()
+
         return Response(serializer.data)
+
 
     def post(self, request, *args, **kwargs):
         serializer = MailingSerializer(data=request.data)
@@ -23,7 +26,6 @@ class MailingApiView(views.APIView):
             finish_time = serializer.data["finish_time"]
             message_text = serializer.data["message_text"]
             filter_properties = serializer.data["filter_properties"]
-
 
             MailingModel.objects.create(
                 launch_time=launch_time,
@@ -36,6 +38,7 @@ class MailingApiView(views.APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
     def put(self, request, pk, *args, **kwargs):
         instance = get_object_or_404(ClientModel, pk)
 
@@ -43,11 +46,15 @@ class MailingApiView(views.APIView):
 
         if serializer.is_valid():
             serializer.save()
+
             return Response(serializer.data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
     def delete(self, request, pk, format=None):
         instance = get_object_or_404(MailingModel, pk)
+
         instance.delete()
+
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -1,0 +1,35 @@
+[
+    {
+        "model": "client.linktagandclientmodel",
+        "pk": 1,
+        "fields": {
+            "tag": 1,
+            "client": 1
+        }
+    },
+    {
+        "model": "client.linktagandclientmodel",
+        "pk": 2,
+        "fields": {
+            "tag": 2,
+            "client": 1
+        }
+    },
+    {
+        "model": "client.linktagandclientmodel",
+        "pk": 1,
+        "fields": {
+            "tag": 1,
+            "client": 2
+        }
+    },
+    {
+        "model": "client.linktagandclientmodel",
+        "pk": 1,
+        "fields": {
+            "tag": 2,
+            "client": 3
+        }
+    }
+]
+  
