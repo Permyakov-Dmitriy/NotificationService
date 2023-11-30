@@ -16,7 +16,7 @@
             "sending_time": "2023-12-05T09:45:00Z",
             "status": "Pending",
             "mailing_id": 1,
-            "client_id": 1
+            "client_id": 2
         }
     },
     {
@@ -26,7 +26,7 @@
             "sending_time": "2023-12-10T16:20:00Z",
             "status": "Failed",
             "mailing_id": 1,
-            "client_id": 1
+            "client_id": 3
         }
     },
     {
@@ -36,7 +36,7 @@
                 "sending_time": "2023-12-12T08:00:00Z",
                 "status": "Pending",
                 "mailing_id": 1,
-                "client_id": 1
+                "client_id": 4
             }
         },
         {
@@ -46,7 +46,7 @@
                 "sending_time": "2023-12-15T15:30:00Z",
                 "status": "Delivered",
                 "mailing_id": 1,
-                "client_id": 1
+                "client_id": 5
             }
         },
         {
@@ -56,7 +56,7 @@
                 "sending_time": "2023-12-18T12:45:00Z",
                 "status": "Failed",
                 "mailing_id": 1,
-                "client_id": 1
+                "client_id": 6
             }
         },
         {
@@ -65,7 +65,7 @@
             "fields": {
                 "sending_time": "2023-12-22T17:00:00Z",
                 "status": "Pending",
-                "mailing_id": 1,
+                "mailing_id": 2,
                 "client_id": 1
             }
         },
@@ -75,8 +75,8 @@
             "fields": {
                 "sending_time": "2023-12-25T10:15:00Z",
                 "status": "Delivered",
-                "mailing_id": 1,
-                "client_id": 1
+                "mailing_id": 2,
+                "client_id": 3
             }
         },
         {
@@ -85,8 +85,8 @@
             "fields": {
                 "sending_time": "2023-12-28T14:20:00Z",
                 "status": "Pending",
-                "mailing_id": 1,
-                "client_id": 1
+                "mailing_id": 2,
+                "client_id": 7
             }
         },
         {
@@ -95,8 +95,8 @@
             "fields": {
                 "sending_time": "2023-12-31T11:30:00Z",
                 "status": "Delivered",
-                "mailing_id": 1,
-                "client_id": 1
+                "mailing_id": 2,
+                "client_id": 8
             }
         }
 ]

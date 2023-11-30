@@ -9,3 +9,6 @@ class MailingModel(models.Model):
     message_text = models.TextField()
 
     filter_properties = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.message_text} {self.filter_properties}'

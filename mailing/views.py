@@ -11,7 +11,7 @@ from .serializer import MailingSerializer
 
 class MailingApiView(views.APIView):
     def get(self, request, *args, **kwargs):
-        serializer = MailingSerializer(data = MailingModel.objects.all(), many=True)
+        serializer = MailingSerializer(data=MailingModel.objects.all(), many=True)
 
         serializer.is_valid()
 

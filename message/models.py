@@ -12,3 +12,7 @@ class MessageModel(models.Model):
     mailing_id = models.ForeignKey(MailingModel, related_name="mailing_id", on_delete=models.CASCADE)
 
     client_id = models.ForeignKey(ClientModel, related_name="client_id", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.mailing_id} {self.client_id.phone_number} {self.status}'
+    
