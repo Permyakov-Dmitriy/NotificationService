@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.postgres import fields
+
+from client.models import TagModel
 
 
 class MailingModel(models.Model):
@@ -8,7 +11,9 @@ class MailingModel(models.Model):
 
     message_text = models.TextField()
 
-    filter_properties = models.CharField(max_length=50)
+    filter_tags = fields.ArrayField(models.IntegerField(), default=None)
+
+    filter_operator = models.IntegerField(default=None)
 
     def __str__(self):
-        return f'{self.message_text} {self.filter_properties}'
+        return f'{self.message_text} {self.filter_tags} {self.filter_operator}'

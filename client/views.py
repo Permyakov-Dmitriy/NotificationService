@@ -1,15 +1,19 @@
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 
+from rest_framework.exceptions import APIException
 from rest_framework import views, permissions, status
 from rest_framework.response import Response
 
 from .models import ClientModel, TagModel, LinkTagAndClientModel
 from .serializer import ClientSerializer
+from .exceptions import BadRequest
 
 import re
 
 
 class ClientApiView(views.APIView):
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         serializer = ClientSerializer(data=request.data)
 
@@ -26,16 +30,17 @@ class ClientApiView(views.APIView):
                 timezone=timezone,
             )
 
-            if tags:
-                marks = re.split(r"[^a-z]*", tags)
+            if tags is not None:
+                tags = set(tags)
 
-                for mark in marks:
-                    tag_instance = TagModel.objects.create(mark=mark)
+                tag_instances = TagModel.objects.filter(pk__in=tags).all()
 
-                    LinkTagAndClientModel.objects.create(
-                        tag=tag_instance,
-                        client=client_instance
-                    )
+                if len(tags) != len(tag_instances):
+                    raise BadRequest()
+
+                LinkTagAndClientModel.objects.bulk_create(
+                    [LinkTagAndClientModel(client=client_instance, tag=tag_instance) for tag_instance in  tag_instances]
+                )
 
             return Response(status=status.HTTP_201_CREATED)
 

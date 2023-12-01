@@ -25,13 +25,15 @@ class MailingApiView(views.APIView):
             launch_time = serializer.data["launch_time"]
             finish_time = serializer.data["finish_time"]
             message_text = serializer.data["message_text"]
-            filter_properties = serializer.data["filter_properties"]
+            filter_tags = serializer.data["filter_tags"]
+            filter_operator = serializer.data["filter_operator"]
 
             MailingModel.objects.create(
                 launch_time=launch_time,
                 finish_time=finish_time,
                 message_text=message_text,
-                filter_properties=filter_properties,
+                filter_tags=filter_tags,
+                filter_operator=filter_operator
             )
 
             return Response(status=status.HTTP_201_CREATED)

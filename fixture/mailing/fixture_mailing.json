@@ -6,7 +6,8 @@
             "launch_time": "2023-12-01T12:00:00Z",
             "finish_time": "2023-12-10T18:00:00Z",
             "message_text": "Привет, мир!",
-            "tag": "customer, partner"
+            "filter_tags": [1, 2],
+            "filter_operator": 777
         }
     },
     {
@@ -16,7 +17,8 @@
             "launch_time": "2023-12-05T08:30:00Z",
             "finish_time": "2023-12-15T20:00:00Z",
             "message_text": "Это тестовое сообщение.",
-            "tag": "customer"
+            "filter_tags": [1],
+            "filter_operator": null
         }
     },
     {
@@ -26,7 +28,8 @@
             "launch_time": "2023-12-10T14:00:00Z",
             "finish_time": "2023-12-20T22:00:00Z",
             "message_text": "Еще одно сообщение.",
-            "tag": "partner"
+            "filter_tags": null,
+            "filter_operator": 657
         }
     }
 ]

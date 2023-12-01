@@ -20,7 +20,7 @@ services:
     container_name: postgres_notify
     restart: always
     environment:
-      POSTGRES_DB: Notify
+      POSTGRES_DB: notify
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
     ports:

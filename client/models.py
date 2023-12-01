@@ -12,13 +12,12 @@ class TagModel(models.Model):
 class ClientModel(models.Model):
     phone_number = PhoneNumberField()
 
-    operator_code = models.CharField(max_length=3)
+    operator_code = models.IntegerField(default=None)
 
     timezone = models.CharField(max_length=63)
 
     def __str__(self):
         return f'{self.phone_number} {self.timezone}'
-    
 
 
 class LinkTagAndClientModel(models.Model):
