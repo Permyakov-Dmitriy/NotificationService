@@ -11,9 +11,9 @@ class MailingModel(models.Model):
 
     message_text = models.TextField()
 
-    filter_tags = fields.ArrayField(models.IntegerField(), default=None)
+    filter_tags = fields.ArrayField(models.IntegerField(), default=None, null=True)
 
-    filter_operator = models.IntegerField(default=None)
+    filter_operator = models.IntegerField(default=None, null=True)
 
     def __str__(self):
         return f'{self.message_text} {self.filter_tags} {self.filter_operator}'
