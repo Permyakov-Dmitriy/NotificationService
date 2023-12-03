@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_prometheus",
+    'celery',
     "phonenumber_field",
     'rest_framework',
     'mailing',
@@ -130,3 +132,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery config
+
+CELERY_BROKER_URL = 'redis://redis-notify:6379/0'  # используйте свой URL брокера
+CELERY_RESULT_BACKEND = 'redis://redis-notify:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+APPEND_SLASH = False

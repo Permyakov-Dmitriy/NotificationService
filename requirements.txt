@@ -1,5 +1,8 @@
 Django
 djangorestframework
 django-phonenumber-field[phonenumberslite]
+django-prometheus
 psycopg2-binary>=2.9.0
 psycopg2
+celery
+redis
