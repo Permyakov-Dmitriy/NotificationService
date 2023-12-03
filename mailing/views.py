@@ -15,27 +15,24 @@ from celery import current_app
 
 class MailingApiView(views.APIView):
     def get(self, request, *args, **kwargs):
-        mailing_all = MailingModel.objects.all()
+        queryset_mailing_all = MailingModel.objects.all()
 
-        queryset = MessageModel.objects.values('mailing_id', 'status').annotate(count_id=Count('id'))
+        queryset_messages_group = MessageModel.objects.values('mailing_id', 'status').annotate(count_id=Count('id'))
 
-        dict_statistics = {m.id: {"mailing": m} for m in mailing_all}
+        dict_statistics = {m.id: {"mailing": m} for m in queryset_mailing_all}
 
-        for msg in list(queryset):
-            instance_messages = dict_statistics[msg["mailing_id"]].get('messages', '')
+        for msg in list(queryset_messages_group):
+            instance_mailing = dict_statistics[msg['mailing_id']]
 
-            if instance_messages:
-                instance_messages[msg["status"]] = msg["count_id"]
-            else:
-                dict_statistics[msg["mailing_id"]]['messages'] = {msg["status"]: msg["count_id"]}
+            instance_mailing.setdefault('messages', {})[msg['status']] = msg['count_id']
 
-        dict_statistics = [v for k, v in dict_statistics.items()]
+        result = list(dict_statistics.values())
 
-        ser = StatisticsSerializer(data=dict_statistics, many=True)
+        serializer = StatisticsSerializer(data=result, many=True)
 
-        ser.is_valid()
+        serializer.is_valid()
 
-        return Response(ser.data)
+        return Response(serializer.data)
 
 
     def post(self, request, *args, **kwargs):
@@ -62,7 +59,7 @@ class MailingApiView(views.APIView):
 
 
     def put(self, request, pk, *args, **kwargs):
-        instance = get_object_or_404(ClientModel, pk)
+        instance = get_object_or_404(MailingModel, pk)
 
         serializer = MailingSerializer(instance, data=request.data)
 
