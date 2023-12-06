@@ -87,8 +87,7 @@ class TestCeleryView(views.APIView):
     def post(self, request, *args, **kwargs):
         # Получите время из запроса, например:
         scheduled_time = request.data.get('scheduled_time').split()
-
-        print(1)
+        mailing_id = request.data.get('mailing_id')
 
         date = list(map(int, scheduled_time[0].split('.')))
         time = list(map(int, scheduled_time[1].split(':')))
@@ -98,9 +97,7 @@ class TestCeleryView(views.APIView):
         # Рассчитайте разницу между текущим временем и временем выполнения
         time_diff = datetime(*arr_date_time) - datetime.now()
 
-        print(datetime.now() + time_diff - timedelta(hours=6))
-
         # Запланируйте выполнение задачи с использованием Celery
-        current_app.send_task('mailing.tasks.your_task', eta=datetime.now() + time_diff)
+        current_app.send_task('mailing.tasks.your_task', args=[mailing_id], eta=datetime.now() + time_diff - timedelta(hours=6))
 
         return Response({'message': 'Задача запланирована успешно'})

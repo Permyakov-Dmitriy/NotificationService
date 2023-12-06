@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.db import transaction
+from django.db.models import Q
 
 from rest_framework.exceptions import APIException
 from rest_framework import views, permissions, status
@@ -9,10 +10,19 @@ from .models import ClientModel, TagModel, LinkTagAndClientModel
 from .serializer import ClientSerializer
 from .exceptions import BadRequest
 
-import re
-
 
 class ClientApiView(views.APIView):
+    def get(self, request, *args, **kwargs):
+        result = ClientModel.objects.filter(
+            Q(client__tag_id__in=[2]) |
+            Q(operator_code=901)
+        ).distinct()
+
+        for obj in result:
+            print(obj.id, obj.operator_code)
+
+        return Response(status=status.HTTP_200_OK)
+
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         serializer = ClientSerializer(data=request.data)

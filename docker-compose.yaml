@@ -59,16 +59,6 @@ services:
     networks:
       - my_network
 
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./prometheus/:/etc/prometheus/
-    ports:
-      - "9090:9090"
-    command: --config.file=/etc/prometheus/prometheus.yml
-    networks:
-      - my_network
-
 networks:
   my_network:
     driver: bridge

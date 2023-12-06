@@ -17,7 +17,7 @@
     },
     {
         "model": "client.linktagandclientmodel",
-        "pk": 1,
+        "pk": 3,
         "fields": {
             "tag": 1,
             "client": 2
@@ -25,7 +25,7 @@
     },
     {
         "model": "client.linktagandclientmodel",
-        "pk": 1,
+        "pk": 4,
         "fields": {
             "tag": 2,
             "client": 3
