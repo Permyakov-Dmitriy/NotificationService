@@ -45,6 +45,8 @@ services:
       - api
       - postgres
       - redis-notify
+    volumes:
+      - .:/app
     networks:
       - my_network
 
@@ -56,7 +58,9 @@ services:
       - api
       - postgres
       - redis-notify
-    networks:
+    volumes:
+      - .:/app
+    networks: 
       - my_network
 
 networks:
