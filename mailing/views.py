@@ -45,13 +45,28 @@ class MailingApiView(views.APIView):
             filter_tags = serializer.data["filter_tags"]
             filter_operator = serializer.data["filter_operator"]
 
-            MailingModel.objects.create(
+            mailing_instance = MailingModel.objects.create(
                 launch_time=launch_time,
                 finish_time=finish_time,
                 message_text=message_text,
                 filter_tags=filter_tags,
                 filter_operator=filter_operator
             )
+
+
+            scheduled_time = launch_time.replace('Z', '').split("T")
+            print(scheduled_time)
+            
+            date = list(map(int, scheduled_time[0].split('-')))
+            time = list(map(int, scheduled_time[1].split(':')))
+
+            arr_date_time = date + time
+
+            # Рассчитайте разницу между текущим временем и временем выполнения
+            time_diff = datetime(*arr_date_time) - datetime.now()
+
+            # Запланируйте выполнение задачи с использованием Celery
+            current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id], eta=datetime.now() + time_diff - timedelta(hours=6))
 
             return Response(status=status.HTTP_201_CREATED)
 
@@ -74,30 +89,8 @@ class MailingApiView(views.APIView):
     def delete(self, request, format=None):
         id = request.GET.get("id")
 
-        print(id)
-
         instance = get_object_or_404(klass=MailingModel, pk=id)
 
         instance.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class TestCeleryView(views.APIView):
-    def post(self, request, *args, **kwargs):
-        # Получите время из запроса, например:
-        scheduled_time = request.data.get('scheduled_time').split()
-        mailing_id = request.data.get('mailing_id')
-
-        date = list(map(int, scheduled_time[0].split('.')))
-        time = list(map(int, scheduled_time[1].split(':')))
-
-        arr_date_time = date + time
-
-        # Рассчитайте разницу между текущим временем и временем выполнения
-        time_diff = datetime(*arr_date_time) - datetime.now()
-
-        # Запланируйте выполнение задачи с использованием Celery
-        current_app.send_task('mailing.tasks.your_task', args=[mailing_id], eta=datetime.now() + time_diff - timedelta(hours=6))
-
-        return Response({'message': 'Задача запланирована успешно'})

@@ -1,5 +1,7 @@
 from django.db.models import Q
 
+from notification_service.settings import JWT_API, URL_API
+
 from client.models import ClientModel
 from mailing.models import MailingModel
 from message.models import MessageModel
@@ -38,11 +40,9 @@ def get_users(filter_tags, filter_operator):
 
 async def fetch_data(session, url, headers, data, mailing_id, user_id):
     async with session.post(url, headers=headers, json=data) as response:
-        if response.status == 200:
-            res_txt = await response.text()
-
-            if res_txt == '{"code":0,"message":"OK"}':
-                await create_message('Delivered', mailing_id, user_id)
+        res_txt = await response.text()
+        if response.status == 200 and res_txt == '{"code":0,"message":"OK"}':
+            await create_message('Delivered', mailing_id, user_id)
         else:
             await create_message('Failed', mailing_id, user_id)
 
@@ -56,14 +56,10 @@ async def main(mailing_id):
     except TypeError:
         return 0
 
-    api_url = "https://probe.fbrq.cloud/v1/send/"
-
     headers = {
         'Content-Type': 'application/json',
         'accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-        '.eyJleHAiOjE3MzI2MzMzMDcsImlzcyI6ImZhYnJpcXVlIiwibmFtZSI6Imh0dHBzOi8vdC5tZS9EbWl0cml5R2lib24ifQ'
-        '.Y4CmrhFLweZ8as_rhm4q3IaNHJPx4BQHjn3Os0F9OH8'
+        'Authorization': 'Bearer ' + JWT_API 
     }
 
     async with aiohttp.ClientSession() as session:
@@ -76,12 +72,12 @@ async def main(mailing_id):
                 "text": mailing.message_text
             }
 
-            task = asyncio.create_task(fetch_data(session, api_url + str(user.id), headers, payload, mailing, user))
+            task = asyncio.create_task(fetch_data(session, URL_API + str(user.id), headers, payload, mailing, user))
             tasks.append(task)
 
         results = await asyncio.gather(*tasks)
 
 
 @shared_task
-def your_task(mailing_id):
+def mailing_task(mailing_id):
     asyncio.run(main(mailing_id))

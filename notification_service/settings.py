@@ -11,22 +11,22 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+env = environ.Env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@^b087*4ra=304-dye@466)+=0^i2v$n7193g9!*wi%1b3u&m4'
+DEBUG = env.bool("DEBUG")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env("SECRET_KEY")
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django_prometheus",
     'celery',
     "phonenumber_field",
     'rest_framework',
@@ -83,9 +82,9 @@ WSGI_APPLICATION = 'notification_service.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "notify",
+        "NAME": env("USER_DB"),
         "USER": "postgres",
-        "PASSWORD": "12345",
+        "PASSWORD": env("PASSWORD_DB"),
         "HOST": "postgres",
         "PORT": "5432",
     }
@@ -143,3 +142,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
 APPEND_SLASH = False
+
+JWT_API = env('JWT_API')
+URL_API = env('URL_API')
