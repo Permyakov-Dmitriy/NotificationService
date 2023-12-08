@@ -7,8 +7,8 @@ from message.views import StatisticsMessagesApiView
 
 
 url_api_patterns = [
-    path("mailing", MailingApiView.as_view()),
-    path("client", ClientApiView.as_view()),
+    path("mailing", MailingApiView.as_view(), name='mailing'),
+    path("client", ClientApiView.as_view(), name='client'),
     path("statistics_messages/<int:pk>", StatisticsMessagesApiView.as_view()), 
 ]
 

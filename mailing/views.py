@@ -55,18 +55,20 @@ class MailingApiView(views.APIView):
 
 
             scheduled_time = launch_time.replace('Z', '').split("T")
-            print(scheduled_time)
             
             date = list(map(int, scheduled_time[0].split('-')))
-            time = list(map(int, scheduled_time[1].split(':')))
+
+            time_format = scheduled_time[1].split('-')
+   
+            time_zone = time_format[1].split(':')
+
+            time = list(map(int, time_format[0].split(':')))
 
             arr_date_time = date + time
 
-            # Рассчитайте разницу между текущим временем и временем выполнения
             time_diff = datetime(*arr_date_time) - datetime.now()
 
-            # Запланируйте выполнение задачи с использованием Celery
-            current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id], eta=datetime.now() + time_diff - timedelta(hours=6))
+            current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id], eta=datetime.now() + time_diff - timedelta(hours=int(time_zone[0]), minutes=time_zone[1]))
 
             return Response(status=status.HTTP_201_CREATED)
 

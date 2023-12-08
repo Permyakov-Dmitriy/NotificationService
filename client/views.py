@@ -12,17 +12,6 @@ from .exceptions import BadRequest
 
 
 class ClientApiView(views.APIView):
-    def get(self, request, *args, **kwargs):
-        result = ClientModel.objects.filter(
-            Q(client__tag_id__in=[2]) |
-            Q(operator_code=901)
-        ).distinct()
-
-        for obj in result:
-            print(obj.id, obj.operator_code)
-
-        return Response(status=status.HTTP_200_OK)
-
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         serializer = ClientSerializer(data=request.data)
@@ -57,8 +46,9 @@ class ClientApiView(views.APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def put(self, request, pk, *args, **kwargs):
-        instance = get_object_or_404(ClientModel, pk)
+    def put(self, request, *args, **kwargs):
+        client_id = request.GET.get("id")
+        instance = get_object_or_404(klass=ClientModel, pk=client_id)
 
         serializer = ClientSerializer(instance, data=request.data)
 
@@ -69,7 +59,10 @@ class ClientApiView(views.APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def delete(self, request, pk, format=None):
-        instance = get_object_or_404(ClientModel, pk)
+    def delete(self, request, format=None):
+        client_id = request.GET.get("id")
+
+        instance = get_object_or_404(klass=ClientModel, pk=client_id)
         instance.delete()
+
         return Response(status=status.HTTP_204_NO_CONTENT)

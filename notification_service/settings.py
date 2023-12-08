@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from django.utils import timezone
+
 from pathlib import Path
 import environ
 import os
@@ -115,7 +117,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Получаем часовой пояс хоста
+host_timezone = timezone.get_current_timezone()
+
+# Устанавливаем часовой пояс для Django
+# Это нужно сделать в начале работы приложения, например, в settings.py
+# Или в __init__.py вашего приложения
+timezone.activate(host_timezone)
 
 USE_I18N = True
 
@@ -139,7 +147,6 @@ CELERY_RESULT_BACKEND = 'redis://redis-notify:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
 
 APPEND_SLASH = False
 
