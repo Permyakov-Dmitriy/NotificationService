@@ -11,8 +11,10 @@ from .serializer import MessageSerializer
 
 
 class StatisticsMessagesApiView(views.APIView):
-    def get(self, request, pk, *args, **kwargs):
-        mailing_instance = get_object_or_404(MailingModel, pk=pk)
+    def get(self, request, *args, **kwargs):
+        mailing_id = request.GET.get("id")
+
+        mailing_instance = get_object_or_404(klass=MailingModel, pk=mailing_id)
 
         result = MessageModel.objects.filter(
             Q(mailing_id=mailing_instance) & Q(status="Delivered")

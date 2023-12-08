@@ -68,15 +68,17 @@ class MailingApiView(views.APIView):
 
             time_diff = datetime(*arr_date_time) - datetime.now()
 
-            current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id], eta=datetime.now() + time_diff - timedelta(hours=int(time_zone[0]), minutes=time_zone[1]))
+            current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id], eta=datetime.now() + time_diff - timedelta(hours=int(time_zone[0]), minutes=int(time_zone[1])))
 
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def put(self, request, pk, *args, **kwargs):
-        instance = get_object_or_404(MailingModel, pk)
+    def put(self, request, *args, **kwargs):
+        mailing_id = request.GET.get("id")
+
+        instance = get_object_or_404(klass=MailingModel, pk=mailing_id)
 
         serializer = MailingSerializer(instance, data=request.data)
 
@@ -89,9 +91,9 @@ class MailingApiView(views.APIView):
 
 
     def delete(self, request, format=None):
-        id = request.GET.get("id")
+        mailing_id = request.GET.get("id")
 
-        instance = get_object_or_404(klass=MailingModel, pk=id)
+        instance = get_object_or_404(klass=MailingModel, pk=mailing_id)
 
         instance.delete()
 

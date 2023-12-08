@@ -117,12 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# Получаем часовой пояс хоста
 host_timezone = timezone.get_current_timezone()
 
-# Устанавливаем часовой пояс для Django
-# Это нужно сделать в начале работы приложения, например, в settings.py
-# Или в __init__.py вашего приложения
 timezone.activate(host_timezone)
 
 USE_I18N = True

@@ -3,8 +3,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-# from .serializers import UserSerializer, CodeSerializer
-from ..models import TagModel
+from .serializer import ClientSerializer
 
 
 class TestClientApi(APITestCase):
@@ -33,7 +32,7 @@ class TestClientApi(APITestCase):
         data = {
             "phone_number": "+77519009887",
             "timezone": 'UTC',
-            "tags": []
+            "tags": [1]
         }
 
         response = self.client.put(url, data, format="json")
@@ -46,3 +45,14 @@ class TestClientApi(APITestCase):
         response = self.client.delete(url)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_serializer(self):
+        data = {
+            "phone_number": "+77519009887",
+            "timezone": 'UTC',
+            "tags": [1]
+        }
+        
+        result = ClientSerializer(data=data)
+
+        self.assertEqual(result.is_valid(), True)
