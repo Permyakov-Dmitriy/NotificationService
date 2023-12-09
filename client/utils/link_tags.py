@@ -1,4 +1,5 @@
 from ..models import TagModel, LinkTagAndClientModel
+from ..exceptions import BadRequest
 
 
 def create_link_tags(client_instance, tags):

@@ -1,8 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
 
-from rest_framework import views, permissions, status
+from rest_framework import views, status, serializers
 from rest_framework.response import Response
+
+from drf_spectacular.utils import extend_schema, inline_serializer
+from drf_spectacular.utils import OpenApiResponse, OpenApiExample, OpenApiParameter
 
 from message.models import MessageModel
 
@@ -16,6 +19,32 @@ from celery import current_app
 
 
 class MailingApiView(views.APIView):
+    @extend_schema(
+        request=StatisticsSerializer,
+        responses={
+            200: OpenApiResponse(
+                response=StatisticsSerializer(many=True),
+                examples=[
+                    OpenApiExample(
+                        name="Example",
+                        value={
+                            "mailing": {
+                                "launch_time": "2023-12-09T17:04:04.121Z",
+                                "finish_time": "2023-12-09T17:04:04.121Z",
+                                "message_text": "string",
+                                "filter_tags": [1, 2],
+                                "filter_operator": 777
+                                },
+                            "messages": {
+                                "Delivered": 3,
+                                "Failed": 1
+                            }
+                        },
+                    )
+                ]
+            )
+        }
+    )
     def get(self, request, *args, **kwargs):
         queryset_mailing_all = MailingModel.objects.all()
 
@@ -36,7 +65,18 @@ class MailingApiView(views.APIView):
 
         return Response(serializer.data)
 
-
+    @extend_schema(
+        request=MailingSerializer,
+        responses={
+            201: OpenApiResponse(),
+            400: OpenApiResponse(
+                response=inline_serializer(
+                    name="Error input data",
+                    fields={"detail": serializers.CharField()},
+                )
+            )
+        }
+    )
     def post(self, request, *args, **kwargs):
         serializer = MailingSerializer(data=request.data)
 
@@ -65,7 +105,33 @@ class MailingApiView(views.APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+    @extend_schema(
+        request=MailingSerializer,
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                description='Description of the query parameter',
+                required=True,
+            ),
+        ],
+        responses={
+            201: MailingSerializer(),
+            404: OpenApiResponse(
+                response=inline_serializer(
+                    name="Not Found",
+                    fields={"detail": serializers.CharField()},
+                )
+            ),
+            400: OpenApiResponse(
+                response=inline_serializer(
+                    name="Error input data",
+                    fields={"detail": serializers.CharField()},
+                )
+            )
+        }
+    )
     def put(self, request, *args, **kwargs):
         mailing_id = request.GET.get("id")
 
@@ -80,7 +146,27 @@ class MailingApiView(views.APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+    @extend_schema(
+        request=MailingSerializer,
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                description='Description of the query parameter',
+                required=True,
+            ),
+        ],
+        responses={
+            204: OpenApiResponse(),
+            404: OpenApiResponse(
+                response=inline_serializer(
+                    name="Not Found",
+                    fields={"detail": serializers.CharField()},
+                )
+            )
+        }
+    )
     def delete(self, request, format=None):
         mailing_id = request.GET.get("id")
 

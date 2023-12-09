@@ -1,3 +1,9 @@
 {
-    "workbench.settings.editor": "json",
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on"
+    },
+    "editor.snippetSuggestions": "bottom",
+    "editor.suggest.filterGraceful": false,
+    "editor.wordBasedSuggestions": "allDocuments"
 }

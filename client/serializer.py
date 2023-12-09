@@ -10,7 +10,7 @@ class ClientSerializer(serializers.Serializer):
 
     timezone = serializers.CharField(max_length=63)
 
-    tags = serializers.ListField(default=None)
+    tags = serializers.ListField(child=serializers.IntegerField(), default=None)
 
     def update(self, instance, validated_data):
         instance.phone_number = validated_data.get('phone_number', instance.phone_number)

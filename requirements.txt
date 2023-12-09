@@ -2,6 +2,7 @@ Django
 djangorestframework
 django-phonenumber-field[phonenumberslite]
 django-environ
+drf-spectacular
 psycopg2-binary>=2.9.0
 psycopg2
 celery

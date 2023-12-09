@@ -1,11 +1,9 @@
 from django.db import models
 from django.contrib.postgres import fields
 
-from client.models import TagModel
-
 
 class MailingModel(models.Model):
-    launch_time = models.DateTimeField()
+    launch_time = models.DateTimeField()    
 
     finish_time = models.DateTimeField()
 

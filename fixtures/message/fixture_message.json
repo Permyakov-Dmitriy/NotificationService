@@ -14,7 +14,7 @@
         "pk": 2,
         "fields": {
             "sending_time": "2023-12-05T09:45:00Z",
-            "status": "Pending",
+            "status": "Delivered",
             "mailing_id": 1,
             "client_id": 2
         }
@@ -34,7 +34,7 @@
             "pk": 4,
             "fields": {
                 "sending_time": "2023-12-12T08:00:00Z",
-                "status": "Pending",
+                "status": "Delivered",
                 "mailing_id": 1,
                 "client_id": 4
             }
@@ -64,7 +64,7 @@
             "pk": 7,
             "fields": {
                 "sending_time": "2023-12-22T17:00:00Z",
-                "status": "Pending",
+                "status": "Delivered",
                 "mailing_id": 2,
                 "client_id": 1
             }
@@ -84,7 +84,7 @@
             "pk": 9,
             "fields": {
                 "sending_time": "2023-12-28T14:20:00Z",
-                "status": "Pending",
+                "status": "Delivered",
                 "mailing_id": 2,
                 "client_id": 7
             }

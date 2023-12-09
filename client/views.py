@@ -1,18 +1,30 @@
 from django.shortcuts import get_object_or_404
 from django.db import transaction
-from django.db.models import Q
 
-from rest_framework.exceptions import APIException
-from rest_framework import views, permissions, status
+from rest_framework import views, status, serializers
 from rest_framework.response import Response
 
-from .models import ClientModel, TagModel, LinkTagAndClientModel
+from drf_spectacular.utils import extend_schema, inline_serializer
+from drf_spectacular.utils import OpenApiResponse, OpenApiParameter
+
+from .models import ClientModel
 from .serializer import ClientSerializer
-from .exceptions import BadRequest
 from .utils.link_tags import create_link_tags
 
 
 class ClientApiView(views.APIView):
+    @extend_schema(
+        request=ClientSerializer,
+        responses={
+            201: OpenApiResponse(),
+            400: OpenApiResponse(
+                response=inline_serializer(
+                    name="Error input data",
+                    fields={"detail": serializers.CharField()},
+                )
+            )
+        }
+    )
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         serializer = ClientSerializer(data=request.data)
@@ -37,7 +49,34 @@ class ClientApiView(views.APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+    @extend_schema(
+        request=ClientSerializer,
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                description='Description of the query parameter',
+                required=True,
+            ),
+        ],
+        responses={
+            200: ClientSerializer(),
+            400: OpenApiResponse(
+                response=inline_serializer(
+                    name="Error input data",
+                    fields={"detail": serializers.CharField()},
+                )
+            ),
+            404: OpenApiResponse(
+                response=inline_serializer(
+                    name="Not Found",
+                    fields={"detail": serializers.CharField()},
+                )
+            )
+        }
+    )
+    @transaction.atomic
     def put(self, request, *args, **kwargs):
         client_id = request.GET.get("id")
         instance = get_object_or_404(klass=ClientModel, pk=client_id)
@@ -50,7 +89,27 @@ class ClientApiView(views.APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+    @extend_schema(
+        request=ClientSerializer,
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                description='Description of the query parameter',
+                required=True,
+            ),
+        ],
+        responses={
+            204: OpenApiResponse(),
+            404: OpenApiResponse(
+                response=inline_serializer(
+                    name="Not Found",
+                    fields={"detail": serializers.CharField()},
+                )
+            )
+        }
+    )
     def delete(self, request, format=None):
         client_id = request.GET.get("id")
 

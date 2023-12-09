@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'celery',
-    "phonenumber_field",
     'rest_framework',
+    'drf_spectacular',
+    'celery',
+    'phonenumber_field',
     'mailing',
     'client',
     'message'
@@ -148,3 +149,17 @@ APPEND_SLASH = False
 
 JWT_API = env('JWT_API')
 URL_API = env('URL_API')
+
+REST_FRAMEWORK = {
+   "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Notification service",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_SETTINGS": {
+        "filter": True,
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+}
