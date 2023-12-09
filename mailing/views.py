@@ -6,10 +6,12 @@ from rest_framework.response import Response
 
 from message.models import MessageModel
 
-from .models import MailingModel
+from .models import MailingModel, CeleryTaskModel
 from .serializer import MailingSerializer, StatisticsSerializer
+from .utils.format_date import string_to_arrays_int
+from .utils.task import create_task
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from celery import current_app
 
 
@@ -53,22 +55,11 @@ class MailingApiView(views.APIView):
                 filter_operator=filter_operator
             )
 
-
-            scheduled_time = launch_time.replace('Z', '').split("T")
-            
-            date = list(map(int, scheduled_time[0].split('-')))
-
-            time_format = scheduled_time[1].split('-')
-   
-            time_zone = time_format[1].split(':')
-
-            time = list(map(int, time_format[0].split(':')))
-
-            arr_date_time = date + time
+            arr_date_time, time_zone = string_to_arrays_int(launch_time)
 
             time_diff = datetime(*arr_date_time) - datetime.now()
 
-            current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id], eta=datetime.now() + time_diff - timedelta(hours=int(time_zone[0]), minutes=int(time_zone[1])))
+            create_task(mailing_instance, time_diff, time_zone)
 
             return Response(status=status.HTTP_201_CREATED)
 
@@ -95,6 +86,11 @@ class MailingApiView(views.APIView):
 
         instance = get_object_or_404(klass=MailingModel, pk=mailing_id)
 
+        task = CeleryTaskModel.objects.get(mailing=instance)
+
+        current_app.control.revoke(task.task_id, terminate=True)
+
         instance.delete()
+        task.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)

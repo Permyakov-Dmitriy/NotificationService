@@ -3,7 +3,12 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 
+from .utils.format_date import string_to_arrays_int
+from .utils.task import create_task
+from .models import MailingModel, CeleryTaskModel
 from .serializer import MailingSerializer, StatisticsSerializer
+
+from datetime import datetime
 
 
 class TestClientApi(APITestCase):
@@ -12,7 +17,8 @@ class TestClientApi(APITestCase):
         './fixtures/client/fixture_client.json',
         './fixtures/client/fixture_link_tag_and_client.json',
         './fixtures/mailing/fixture_mailing.json',
-        './fixtures/message/fixture_message.json'
+        './fixtures/mailing/fixture_task.json',
+        './fixtures/message/fixture_message.json',
     ]
     
     def test_get(self):
@@ -91,4 +97,22 @@ class TestClientApi(APITestCase):
 
         result = StatisticsSerializer(data=data)
 
-        self.assertEqual(result.is_valid(), True)    
+        self.assertEqual(result.is_valid(), True)
+
+    def test_utils_format_date(self):
+        date_time = '2023-12-09T17:25:00-06:00'
+
+        arr_date_time = string_to_arrays_int(date_time)
+
+        self.assertEqual(arr_date_time, ([2023, 12, 9, 17, 25, 0], [6, 0]))
+
+    def test_utils_task(self):
+        mailing = MailingModel.objects.get(id=1)
+
+        arr_date_time, time_zone = string_to_arrays_int(str(mailing.launch_time))
+
+        time_diff = datetime(*arr_date_time) - datetime.now()
+
+        task = create_task(mailing, time_diff, time_zone)
+
+        self.assertIsInstance(task, CeleryTaskModel)

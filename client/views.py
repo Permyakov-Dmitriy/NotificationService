@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .models import ClientModel, TagModel, LinkTagAndClientModel
 from .serializer import ClientSerializer
 from .exceptions import BadRequest
+from .utils.link_tags import create_link_tags
 
 
 class ClientApiView(views.APIView):
@@ -30,16 +31,7 @@ class ClientApiView(views.APIView):
             )
 
             if tags is not None:
-                tags = set(tags)
-
-                tag_instances = TagModel.objects.filter(pk__in=tags).all()
-
-                if len(tags) != len(tag_instances):
-                    raise BadRequest()
-
-                LinkTagAndClientModel.objects.bulk_create(
-                    [LinkTagAndClientModel(client=client_instance, tag=tag_instance) for tag_instance in  tag_instances]
-                )
+                create_link_tags(client_instance, tags)
 
             return Response(status=status.HTTP_201_CREATED)
 

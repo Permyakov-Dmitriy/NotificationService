@@ -1,0 +1,26 @@
+[
+    {
+        "model": "mailing.celerytaskmodel",
+        "pk": 1,
+        "fields": {
+            "mailing": 1,
+            "task_id": "ab306b14-c721-4080-8752-cc5445515b71"
+        }
+    },
+    {
+        "model": "mailing.celerytaskmodel",
+        "pk": 2,
+        "fields": {
+            "mailing": 2,
+            "task_id": "9b1e6066-b5af-4bf1-a796-a7a5c1cddc7b"
+        }
+    },
+    {
+        "model": "mailing.celerytaskmodel",
+        "pk": 3,
+        "fields": {
+            "mailing": 3,
+            "task_id": "a65f77ef-083b-458a-88b9-28fd973bb988"
+        }
+    }
+]

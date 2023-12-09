@@ -4,6 +4,8 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 
 from .serializer import ClientSerializer
+from .models import ClientModel
+from .utils.link_tags import create_link_tags
 
 
 class TestClientApi(APITestCase):
@@ -11,7 +13,7 @@ class TestClientApi(APITestCase):
         './fixtures/client/fixture_tag.json',
         './fixtures/client/fixture_client.json',
         './fixtures/client/fixture_link_tag_and_client.json'
-        ]
+    ]
 
     def test_post(self):
         url = reverse('client')
@@ -56,3 +58,13 @@ class TestClientApi(APITestCase):
         result = ClientSerializer(data=data)
 
         self.assertEqual(result.is_valid(), True)
+
+    def test_utils_link_tags(self):
+        client = ClientModel.objects.get(id=1)
+
+        links = create_link_tags(client, [1, 2])
+
+        tags = ['customer', 'partner']
+
+        for link, tag in zip(links, tags):
+            self.assertEqual(link.tag.mark, tag)

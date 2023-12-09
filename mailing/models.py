@@ -17,3 +17,9 @@ class MailingModel(models.Model):
 
     def __str__(self):
         return f'{self.message_text} {self.filter_tags} {self.filter_operator}'
+
+
+class CeleryTaskModel(models.Model):
+    mailing = models.ForeignKey(MailingModel, related_name="mailing", on_delete=models.CASCADE)
+
+    task_id = models.CharField()
