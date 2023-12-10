@@ -24,7 +24,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 env = environ.Env()
 
-DEBUG = env.bool("DEBUG")
+DEBUG = env.bool("DEBUG", default=True)
 
 SECRET_KEY = env("SECRET_KEY")
 
