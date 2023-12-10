@@ -13,5 +13,6 @@ build-job:
     - echo 'SECRET_KEY=${SECRET_KEY}' >> .env
     - echo 'URL_API=${URL_API}' >> .env
     - echo 'USER_DB=${USER_DB}' >> .env
+    - docker ps
     - docker-compose up --build tests
     
