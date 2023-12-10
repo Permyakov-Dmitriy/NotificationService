@@ -7,15 +7,8 @@ test-job:
   image: docker
   services: 
     - docker:dind
-  variables:
-    DEBUG: $DEBUG
-    JWT_API: $JWT_API
-    NAME_DB: $NAME_DB
-    PASSWORD_DB: $PASSWORD_DB
-    SECRET_KEY: $SECRET_KEY
-    URL_API: $URL_API
-    USER_DB: $USER_DB
   script:
+    - cat .env
     - echo 'DEBUG=$DEBUG' >> .env
     - echo 'JWT_API=$JWT_API' >> .env
     - echo 'NAME_DB=$NAME_DB' >> .env
@@ -23,6 +16,5 @@ test-job:
     - echo 'SECRET_KEY=$SECRET_KEY' >> .env
     - echo 'URL_API=$URL_API' >> .env
     - echo 'USER_DB=$USER_DB' >> .env
-    - cat .env
     - docker-compose up --build tests
     
