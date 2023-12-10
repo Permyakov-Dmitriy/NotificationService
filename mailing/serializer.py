@@ -1,4 +1,4 @@
-from rest_framework import serializers, fields
+from rest_framework import serializers
 
 from .utils.task import create_task
 from .utils.format_date import string_to_arrays_int

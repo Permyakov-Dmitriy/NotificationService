@@ -7,7 +7,7 @@ from mailing.models import MailingModel
 from message.models import MessageModel
 
 from celery import shared_task
-from datetime import datetime, timedelta
+from datetime import datetime
 from asgiref.sync import sync_to_async
 import asyncio
 import aiohttp

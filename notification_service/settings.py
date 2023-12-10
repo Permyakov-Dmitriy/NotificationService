@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'notification_service.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("USER_DB"),
-        "USER": "postgres",
+        "NAME": env("NAME_DB"),
+        "USER": env("USER_DB"),
         "PASSWORD": env("PASSWORD_DB"),
         "HOST": "postgres",
         "PORT": "5432",
