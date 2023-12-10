@@ -7,6 +7,14 @@ test-job:
   image: docker
   services: 
     - docker:dind
+  variables:
+    DEBUG: $DEBUG
+    JWT_API: $JWT_API
+    NAME_DB: $NAME_DB
+    PASSWORD_DB: $PASSWORD_DB
+    SECRET_KEY: $SECRET_KEY
+    URL_API: $URL_API
+    USER_DB: $USER_DB
   script:
     - echo 'DEBUG=$DEBUG' >> .env
     - echo 'JWT_API=$JWT_API' >> .env
