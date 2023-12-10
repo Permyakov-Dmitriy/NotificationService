@@ -18,11 +18,11 @@ test-job:
     - docker-compose up --build postgres -d
     - docker-compose up --build tests
   after_script:
-  - if grep -q 'OK$' tests-1.log; then
-      # Тесты пройдены, устанавливаем статус success
-      set-pipeline-status "success"
-    else
-      # Тесты не пройдены, устанавливаем статус failed
-      set-pipeline-status "failed" "Tests failed"
-    fi
+    - if grep -q 'OK$' tests-1.log; then
+        # Тесты пройдены, устанавливаем статус success
+        set-pipeline-status "success"
+      else
+        # Тесты не пройдены, устанавливаем статус failed
+        set-pipeline-status "failed" "Tests failed"
+      fi
   
