@@ -24,7 +24,7 @@
 $ git clone https://gitlab.com/my9654648/notification-service
 ```
 
-Перед сборкой нужно описать .env файл по примеру .env.example
+###Перед сборкой нужно описать .env файл по примеру .env.example
 
 Запустите docker и используйте команду:
 ```console
