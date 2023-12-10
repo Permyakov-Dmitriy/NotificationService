@@ -13,5 +13,5 @@ build-job:
     - echo '$SECRET_KEY' > .env
     - echo '$URL_API' > .env
     - echo '$USER_DB' > .env
-    - docker-compose up --build --rm tests
+    - docker-compose up --build tests
     
