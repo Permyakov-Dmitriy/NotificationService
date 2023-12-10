@@ -28,8 +28,6 @@ services:
     depends_on:
       - redis-notify
       - postgres
-    links:
-      - postgres
     networks:
       - my_network
 
