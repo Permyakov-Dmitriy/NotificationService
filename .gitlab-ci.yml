@@ -1,11 +1,12 @@
+image: docker:stable
+
 stages:
   - test
 
-
-build-job:
+test-job:
   stage: test
-  image: docker
   script:
+    - docker info
     - echo 'DEBUG=${DEBUG}' >> .env
     - echo 'JWT_API=${JWT_API}' >> .env
     - echo 'NAME_DB=${NAME_DB}' >> .env
@@ -13,6 +14,5 @@ build-job:
     - echo 'SECRET_KEY=${SECRET_KEY}' >> .env
     - echo 'URL_API=${URL_API}' >> .env
     - echo 'USER_DB=${USER_DB}' >> .env
-    - docker ps
     - docker-compose up --build tests
     
