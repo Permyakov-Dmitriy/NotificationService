@@ -3,6 +3,7 @@ from ..exceptions import BadRequest
 
 
 def create_link_tags(client_instance, tags):
+    '''Создание связи между клиентом и тэгом'''
     tags = set(tags)
 
     tag_instances = TagModel.objects.filter(pk__in=tags).all()

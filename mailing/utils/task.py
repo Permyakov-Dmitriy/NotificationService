@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 
 def create_task(mailing_instance, time_diff, time_zone):
+    '''Создание celery задачи и связи с рассылкой'''
     task = current_app.send_task('mailing.tasks.mailing_task', args=[mailing_instance.id],
         eta=datetime.now() + time_diff - timedelta(hours=time_zone[0], minutes=time_zone[1])
     )

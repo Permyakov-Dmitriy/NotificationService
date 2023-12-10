@@ -46,6 +46,12 @@ class MailingApiView(views.APIView):
         }
     )
     def get(self, request, *args, **kwargs):
+        '''
+        Общая статистика по созданным рассылкам
+        и количеству отправленных сообщений по ним
+        с группировкой по статусам
+        '''
+
         queryset_mailing_all = MailingModel.objects.all()
 
         queryset_messages_group = MessageModel.objects.values('mailing_id', 'status').annotate(count_id=Count('id'))

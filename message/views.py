@@ -38,6 +38,11 @@ class StatisticsMessagesApiView(views.APIView):
     )
 
     def get(self, request, *args, **kwargs):
+        '''
+        Детальная статистика отправленных сообщений
+        по конкретной рассылке
+        '''
+
         mailing_id = request.GET.get("id")
 
         mailing_instance = get_object_or_404(klass=MailingModel, pk=mailing_id)
