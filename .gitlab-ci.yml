@@ -8,13 +8,13 @@ test-job:
   services: 
     - docker:dind
   script:
-    - echo 'DEBUG = $DEBUG' >> .env
-    - echo 'JWT_API = $JWT_API' >> .env
-    - echo 'NAME_DB = $NAME_DB' >> .env
-    - echo 'PASSWORD_DB = $PASSWORD_DB' >> .env
-    - echo 'SECRET_KEY = $SECRET_KEY' >> .env
-    - echo 'URL_API = $URL_API' >> .env
-    - echo 'USER_DB = $USER_DB' >> .env
+    - echo "DEBUG=$DEBUG" >> .env
+    - echo "JWT_API=$JWT_API" >> .env
+    - echo "NAME_DB=$NAME_DB" >> .env
+    - echo "PASSWORD_DB=$PASSWORD_DB" >> .env
+    - echo "SECRET_KEY=$SECRET_KEY" >> .env
+    - echo "URL_API=$URL_API" >> .env
+    - echo "USER_DB=$USER_DB" >> .env
     - cat .env
     - docker-compose up --build tests
     
