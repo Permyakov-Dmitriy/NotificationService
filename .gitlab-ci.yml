@@ -4,10 +4,6 @@ stages:
 test-job:
   stage: test
   image: docker:latest
-  services:
-    - docker:18.09.7-dind
-  variables:
-    DOCKER_HOST: tcp://localhost:2375/
   script:
     - docker info
     - echo 'DEBUG=${DEBUG}' >> .env
