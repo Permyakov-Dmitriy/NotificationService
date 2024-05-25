@@ -1,9 +1,9 @@
 stages:
-  - test
+  - tests
 
 
-test-job:
-  stage: test
+step-job:
+  stage: tests
   image: docker
   services: 
     - docker:dind
